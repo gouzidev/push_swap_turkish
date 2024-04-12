@@ -42,7 +42,6 @@ char	**free_all(char **res);
 int	count_words(char const *s1, char c);
 char	**handle_null_malloc(char const *s, char c);
 char	**ft_split(char const *s, char c);
-void check_format(char *s);
 
 /* helper2.c */
 t_stack *get_max(t_stack *stack);

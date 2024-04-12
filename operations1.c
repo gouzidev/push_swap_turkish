@@ -2,17 +2,13 @@
 
 void	swap_stack(t_stack **head, char *msg)
 {
-	t_stack	*tmp1;
-	t_stack	*tmp2;
+	int	temp;
 
 	if ((*head) && (*head)->next)
 	{
-		tmp1 = new ((*head)->n);
-		pop(head);
-		tmp2 = new ((*head)->n);
-		pop(head);
-		push(head, tmp1);
-		push(head, tmp2);
+		temp = (*head)->n;
+		(*head)->n = (*head)->next->n;
+		(*head)->next->n = temp;
 	}
 	printf("%s", msg);
 

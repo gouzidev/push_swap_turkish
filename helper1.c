@@ -47,7 +47,7 @@ void prepare_and_push(t_stack **a, t_stack **b)
 		handle_cheapest_below_med(a, b, cheapest);	
 	else if (!cheapest->below_median)
 		handle_cheapest_above_med(a, b, cheapest);
-	push_b_to_a(a, b);	
+	push_b_to_a(a, b);
 }
 
 void	give_index(t_stack *head, bool set_target_null)
@@ -89,6 +89,7 @@ void sort_more(t_stack **a, t_stack **b)
 {
 	t_stack *smallest;
 	send_all_to_b(a, b);
+	
 	sort_three(a);
 	while (*b)
 		prepare_and_push(a, b);
@@ -104,4 +105,5 @@ void sort_more(t_stack **a, t_stack **b)
 		while (*a != smallest)
 			rotate_stack(a, "ra\n");
 	}
+
 }

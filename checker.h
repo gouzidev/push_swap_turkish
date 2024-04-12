@@ -57,7 +57,6 @@ char	**free_all(char **res);
 int	count_words(char const *s1, char c);
 char	**handle_null_malloc(char const *s, char c);
 char	**ft_split(char const *s, char c);
-void check_format(char *s);
 
 /* helper.c */
 int	ft_atoi(const char *str);

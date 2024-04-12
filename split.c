@@ -97,7 +97,7 @@ char	**ft_split(char const *s, char c)
 			i++;
 		res[w++] = ft_substr(s, i - j, j);
 		if (res[w - 1] == NULL)
-			return (free_all(res));
+			return (free_all(res), NULL);
 	}
 	res[w] = 0;
 	return (res);

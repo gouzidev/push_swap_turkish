@@ -14,10 +14,10 @@ void	swap_stack(t_stack **head, char *msg)
 		push(head, tmp1);
 		push(head, tmp2);
 	}
-	printf("%s\n", msg);
+	printf("%s", msg);
 
 }
-void	push_b_to_a(t_stack **a, t_stack **b, char *msg)
+void	push_b_to_a(t_stack **a, t_stack **b)
 {
 	t_stack	*temp;
 
@@ -33,10 +33,10 @@ void	push_b_to_a(t_stack **a, t_stack **b, char *msg)
 		push(a, temp);
 	}
 	if (*a)
-		give_index(*a);
+		give_index(*a, false);
 	if (*b)
-		give_index(*b);
-    printf("%s\n", msg);
+		give_index(*b, false);
+    printf("pa\n");
 
 }
 void	push_a_to_b(t_stack **a, t_stack **b)
@@ -55,9 +55,9 @@ void	push_a_to_b(t_stack **a, t_stack **b)
 		push(b, temp);
 	}
 	if (*a)
-		give_index(*a);
+		give_index(*a, false);
 	if (*b)
-		give_index(*b);
+		give_index(*b, false);
 	printf("pb\n");
 }
 void	rotate_stack(t_stack **stack, char *msg)
@@ -69,39 +69,19 @@ void	rotate_stack(t_stack **stack, char *msg)
 		return ;
     
 	new_head = (*stack)->next;
-	last_a = last(*stack);
+	last_a = get_last(*stack);
 	if (last_a)
 		last_a->next = *stack;
 	(*stack)->next = NULL;
 	(*stack) = new_head;
-	give_index(*stack);
-	printf("%s\n", msg);
+	give_index(*stack, false);
+	printf("%s", msg);
 }
 void	rotate_ab(t_stack **a, t_stack **b)
 {
-	// t_stack	*last_a;
-	// t_stack	*last_b;
-	// t_stack	*new_head_a;
-	// t_stack	*new_head_b;
-
-	// if (!a || !*a)
-	// 	return ;
-	// if (!b || !*b)
-	// 	return ;
-	// new_head_a = (*a)->next;
-	// new_head_b = (*b)->next;
-	// last_a = last(*a);
-	// last_b = last(*b);
-	// if (last_a)
-	// 	last_a->next = *a;
-	// if (last_b)
-	// 	last_b->next = *b;
-	// (*a)->next = NULL;
-	// (*b)->next = NULL;
-	// (*a) = new_head_a;
-	// (*b) = new_head_b;
-	rotate_stack(a, "ra");
-	rotate_stack(b, "rb");
+	rotate_stack(a, "");
+	rotate_stack(b, "");
+	printf("rr\n");
 }
 void	reverse_rotate_stack(t_stack **stack, char *msg)
 {
@@ -115,11 +95,8 @@ void	reverse_rotate_stack(t_stack **stack, char *msg)
 	last_node->next = *stack;
 	before_last_node->next = NULL;
 	*stack = last_node;
-
-	if (!stack || !(*stack) || !(*stack)->next)
-		return ;
-	give_index(*stack);
-	printf("%s\n", msg);
+	give_index(*stack, false);
+	printf("%s", msg);
 }
 void	reverse_rotate_ab(t_stack **a, t_stack **b)
 {
@@ -142,6 +119,7 @@ void	reverse_rotate_ab(t_stack **a, t_stack **b)
 	// before_last_node_b->next = NULL;
 	// *a = last_node_a;
 	// *b = last_node_b;
-	reverse_rotate_stack(a, "rra");
-	reverse_rotate_stack(b, "rrb");
+	reverse_rotate_stack(a, "");
+	reverse_rotate_stack(b, "");
+	printf("rrr\n");
 }

@@ -40,12 +40,11 @@ char **free_all(char **res)
 	return (NULL);
 }
 
-int	count_words(char const *s1, char c, int	*len)
+int	count_words(char const *s1, char c)
 {
 	int count;
 
 	count = 0;
-	*len = 0;
 	while (*s1)
 	{
 		if (*s1 == '\0')
@@ -62,17 +61,16 @@ int	count_words(char const *s1, char c, int	*len)
 				s1++;
 		}
 	}
-	*len = count;
 	return (count);
 }
 
-char	**handle_null_malloc(char const *s, char c, int	*len)
+char	**handle_null_malloc(char const *s, char c)
 {
 	char **res;
 
 	if (!s)
 		return (NULL);
-	res = ((char **)malloc((count_words(s, c, len) + 1) * sizeof(char *)));
+	res = ((char **)malloc((count_words(s, c) + 1) * sizeof(char *)));
 	return (res);
 }
 
@@ -110,7 +108,7 @@ void	check_format(char *s)
 			print_exit("Error");
 	}
 }
-char	**ft_split(char const *s, char c, int	*len)
+char	**ft_split(char const *s, char c)
 {
 	int w;
 	char **res;
@@ -118,7 +116,7 @@ char	**ft_split(char const *s, char c, int	*len)
 	int j;
 
 	i = 0;
-	res = handle_null_malloc(s, c, len);
+	res = handle_null_malloc(s, c);
 	if (res == NULL)
 		return (NULL);
 	w = 0;

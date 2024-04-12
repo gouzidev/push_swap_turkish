@@ -1,3 +1,5 @@
+#include "push_swap.h"
+
 int	is_empty(char *s)
 {
 	int	i;

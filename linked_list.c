@@ -18,9 +18,25 @@ void	push(t_stack **head, t_stack *new)
         return;
 	new->next = *head;
 	*head = new;
-    give_index(*head);
+    give_index(*head, false);
 }
-
+void	push_end(t_stack **head, t_stack *new)
+{
+	t_stack *last;
+    if (!new || !head)
+        return;
+	if (!*head)
+	{
+		new->next = *head;
+		*head = new;
+	}
+	else
+	{
+		last = get_last(*head);
+		last->next = new;
+	}
+    give_index(*head, false);
+}
 void	pop(t_stack **head)
 {
 	t_stack	*temp;
@@ -31,7 +47,7 @@ void	pop(t_stack **head)
 	*head = (*head)->next;
 	ft_free(temp);
 }
-int	size(t_stack *stack)
+int	get_size(t_stack *stack)
 {
 	int	i;
 
@@ -43,7 +59,6 @@ int	size(t_stack *stack)
 	}
 	return (i);
 }
-
 t_stack	*duplicate(t_stack *node)
 {
 	t_stack	*temp;
@@ -55,20 +70,18 @@ t_stack	*duplicate(t_stack *node)
 		return NULL;
 	return (temp);
 }
-
 t_stack	*before_last(t_stack *head)
 {
 	while (head && head->next && head->next->next)
 		head = head->next;
 	return (head);
 }
-t_stack	*last(t_stack *head)
+t_stack	*get_last(t_stack *head)
 {
 	while (head && head->next)
 		head = head->next;
 	return (head);
 }
-
 int	exists(t_stack *stack, t_stack *node)
 {
 	t_stack	*temp;
@@ -92,6 +105,6 @@ void	clear(t_stack **head)
 	{
 		temp = curr;
 		curr = curr->next;
-		ft_free(temp);
+		free(temp);
 	}
 }

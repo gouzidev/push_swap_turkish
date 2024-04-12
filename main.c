@@ -1,339 +1,216 @@
 #include "push_swap.h"
-
-// void swap_stack_ab(t_stack **a, t_stack **b)
-// {
-//     t_stack *tmp1;
-//     t_stack *tmp2;
-//     if ((*a) && (*a)->next)
-//     {
-//         tmp1 = new ((*a)->n);
-//         pop(a);
-//         tmp2 = new ((*a)->n);
-//         pop(a);
-//         push(a, tmp1);
-//         push(a, tmp2);
-//     }
-// }
-
-int	*make_arr(t_stack *head, int *arr_size)
+t_stack *get_max(t_stack *stack)
 {
-	int	*arr;
-	int	i;
+	t_stack *max;
+	t_stack *curr;
 
-	*arr_size = size(head);
-	arr = malloc((*arr_size + 1) * sizeof(int));
-	i = 0;
-	while (head && i < *arr_size)
+	curr = stack;
+	max = curr;
+	while (curr)
 	{
-		arr[i++] = head->n;
-		head = head->next;
+		if (curr->n > max->n)
+			max = curr;
+		curr = curr->next;
 	}
-	i = 0;
-	return (arr);
+	return max;
 }
-void	sort_arr(int *arr, int arr_size)
+t_stack *get_min(t_stack *stack)
 {
-	int	i;
-	int	j;
-	int	temp;
+	t_stack *min;
+	t_stack *curr;
 
-	i = 0;
-	while (i < arr_size)
+	curr = stack;
+	min = curr;
+	while (curr)
 	{
-		j = 0;
-		while (j < arr_size - 1)
+		if (curr->n < min->n)
+			min = curr;
+		curr = curr->next;
+	}
+	return min;
+}
+void sort_two(t_stack **a)
+{
+	if (*a && (*a)->next && (*a)->n > (*a)->next->n)
+		swap_stack(a, "sa\n");
+}
+void sort_three(t_stack **a)
+{
+	if ((*a)->next == get_max(*a))
+	{
+		if (get_last(*a)->n < (*a)->n)
+			reverse_rotate_stack(a, "rra\n");
+		else
 		{
-			if (arr[j] > arr[j + 1])
+			swap_stack(a, "sa\n");
+			rotate_stack(a, "ra\n");
+		}
+	}
+	if (*a == get_max(*a))
+		rotate_stack(a, "ra\n");
+	if (get_last(*a) == get_max(*a) && (*a)->n > (*a)->next->n)
+		swap_stack(a, "sa\n");
+}
+void send_all_to_b(t_stack **a, t_stack **b)
+{
+	while (get_size(*a) > 3)
+		push_a_to_b(a, b);
+}
+void set_targets(t_stack *a, t_stack *b)
+{
+	// find the smallest bigger a node than my b node (we should push it there)
+	// if we didnt find than we go for the max node 
+	t_stack *curr_a;
+	long target;
+
+	while (b)
+	{
+		b->target = NULL;
+		target = LONG_MAX;
+		curr_a = a;
+		while (curr_a)
+		{
+			if (curr_a->n < target && curr_a->n > b->n)
 			{
-				temp = arr[j];
-				arr[j] = arr[j + 1];
-				arr[j + 1] = temp;
+				target = curr_a->n;
+				b->target = curr_a;
 			}
-			j++;
+			curr_a = curr_a->next;
 		}
-		i++;
+		if (b->target == NULL)
+			b->target = get_min(a);
+		b = b->next;
 	}
 }
-void sort_two(t_stack **head, char *msg)
+void calc_push_cost(t_stack *a, t_stack *b)
 {
-	if ((*head)->n > (*head)->next->n)
-		swap_stack(head, msg);
-}
-void sort_three(t_stack **a, t_stack **b)
-{
-	t_stack *min;
+	// now all b nodes have a target, should get the push cost -> 
+	// if (below median)
+	// index 
+	// else (above median)
+	// size - index
+	t_stack *curr_b;
 
-	min = find_min(*a);
-	if (min->i == 1)
+	curr_b = b;
+	while (curr_b)
 	{
-		if ((*a)->n > (*a)->next->next->n)
-			rotate_stack(a, "ra");
+		if (curr_b->below_median)
+			curr_b->push_cost = get_size(b) - curr_b->i;
 		else
-			swap_stack(a, "sa");
-	}
-	else if (min->i == 2)
-	{
-		if ((*a)->n > (*a)->next->n)
-		{
-			swap_stack(a, "sa");
-			reverse_rotate_stack(a, "rra");
-		}
+			curr_b->push_cost = curr_b->i;
+		if (curr_b->target->below_median)
+			curr_b->push_cost += get_size(a) - curr_b->target->i;
 		else
+			curr_b->push_cost += curr_b->target->i;
+		curr_b = curr_b->next;
+	}
+}
+t_stack *get_cheapest(t_stack *b)
+{
+	t_stack *cheapest;
+
+	cheapest = b;
+	while (b)
+	{
+		if (b->push_cost < cheapest->push_cost)
+			cheapest = b;
+		b = b->next;
+	}
+	return cheapest;
+
+}
+
+
+void do_all(t_stack **a, t_stack **b)
+{
+	t_stack *cheapest;
+	t_stack *target;
+	t_stack *curr;
+
+    give_index(*a, true);
+    give_index(*b, true);
+	set_targets(*a, *b);
+	calc_push_cost(*a, *b);
+	cheapest = get_cheapest(*b);
+	target = cheapest->target;
+	if (cheapest->below_median)
+	{
+		if (target->below_median)
 		{
-			swap_stack(a, "sa");
-			rotate_stack(a, "ra");
-		}
-	}
-	else if (min->i == 0)
-	{
-		if ((*a)->next->n > (*a)->next->next->n)
-		{
-			swap_stack(a, "sa");
-			rotate_stack(a, "ra");
-		}
-	}
-}
-void sort_four(t_stack **a, t_stack **b)
-{
-	t_stack *min;
-
-	min = find_min(*a);
-	if (min->i > 2)
-	{
-		while (*a != min)
-			reverse_rotate_stack(a, "rra");
-	}
-	else
-	{
-		while (*a != min)
-			rotate_stack(a, "ra");
-	}
-	push_a_to_b(a, b);
-	sort_three(a, b);
-	push_b_to_a(a, b, "pb");
-}
-void sort_five(t_stack **a, t_stack **b)
-{
-	t_stack *min;
-
-	min = find_min(*a);
-	if (min->i > 2)
-	{
-		while (*a != min)
-			reverse_rotate_stack(a, "rra");
-	}
-	else
-	{
-		while (*a != min)
-			rotate_stack(a, "ra");
-	}
-	push_a_to_b(a, b);
-	sort_four(a, b);
-	push_b_to_a(a, b, "pb");
-}
-
-t_stack	*find_max_usin_arr(t_stack *stack, t_data *data)
-{
-	t_stack	*max_node;
-
-	max_node = NULL;
-	if (data->curr_max_i < 0)
-		return NULL;
-	while (stack)
-	{
-		if (stack->n == data->arr[data->curr_max_i])
-			max_node = stack;
-		stack = stack->next;
-	}
-	return max_node;
-}
-
-t_stack	*find_min(t_stack *stack)
-{
-	t_stack	*min_node;
-
-	min_node = stack;
-	while (stack)
-	{
-		if (stack->n < min_node->n)
-			min_node = stack;
-		stack = stack->next;
-	}
-	return min_node;
-}
-
-void set_up(t_stack **stack_a, t_data *data)
-{
-	give_index(*stack_a);
-	data->arr = make_arr(*stack_a, &data->arr_size);
-	sort_arr(data->arr, data->arr_size);
-	data->mid = data->arr_size / 2 - 1;
-	data->div = data->arr[data->mid];
-	data->offset = 45;
-	if (data->arr_size <= 500)
-		data->offset = 30;
-	if (data->arr_size <= 100)
-		data->offset = 12;
-	if (data->arr_size < 50)
-		data->offset = 6;
-	if (data->arr_size < 20)
-		data->offset = 2;
-
-    data->end = data->mid + data->offset;
-    data->start = data->mid - data->offset;
-	data->orig_max = data->arr[data->arr_size - 1];
-	data->curr_max_i = data->arr_size - 1;
-	data->push_counter = 0;
-	check_offset(&data->start, &data->end, data->offset, data->arr_size);
-}
-
-t_stack *find_node_in_range(t_stack *stack, int start, int end)
-{
-	while (stack)
-	{
-		if (stack->n >= start && stack->n <= end)
-			return stack;
-		stack = stack->next;
-	}
-	return NULL;
-}
-void push_B(t_stack **stack_a, t_stack **stack_b, t_data *data)
-{
-	t_stack	*temp;
-    int stack_size;
-	int flag;
-	while (*stack_a)
-	{
-		if ((*stack_a)->n >= data->arr[data->start] && (*stack_a)->n <= data->arr[data->end])
-		{
-			push_a_to_b(stack_a, stack_b);
-			if ((*stack_b)->n < data->arr[data->mid])
-				rotate_stack(stack_b, "rb");
+			while (cheapest != *b && target != *a)
+				reverse_rotate_ab(a, b);
+			while (target != *a)
+				reverse_rotate_stack(a, "rra\n");
 		}
 		else
 		{
-			flag = 0;
-			stack_size = size(*stack_a);
-			temp = *stack_a;
-			give_index(*stack_a);
-			while (temp)
-			{
-				if (temp->n >= data->arr[data->start] && temp->n <= data->arr[data->end])
-				{
-					if (temp->i < (stack_size / 2))
-					{
-						while (*stack_a != temp)
-							rotate_stack(stack_a, "ra");
-					}
-					else
-					{
-						while (*stack_a != temp)
-							reverse_rotate_stack(stack_a, "rra");
-					}
-					push_a_to_b(stack_a, stack_b);
-					if ((*stack_b)->n < data->arr[data->mid])
-						rotate_stack(stack_b, "rb");
-					flag = 1;
-					break;
-				}
-				temp = temp->next;
-			}
-			if (flag == 0)
-				update_offset(&data->start, &data->end, data->offset, data->arr_size);
+			while (target != *a)
+				rotate_stack(a, "ra\n");
 		}
+		while (cheapest != *b)
+			reverse_rotate_stack(b, "rrb\n");
 	}
-	*stack_a = NULL;
-	give_index(*stack_b);
-
+	else if (!cheapest->below_median)
+	{
+		if (!target->below_median)
+		{
+			while (cheapest != *b && target != *a)
+				rotate_ab(a, b);
+			while (target != *a)
+				rotate_stack(a, "ra\n");
+		}
+		else
+		{
+			while (target != *a)
+				reverse_rotate_stack(a, "rra\n");
+		}
+		while (cheapest != *b)
+			rotate_stack(b, "rb\n");
+	}
+	give_index(*b, 0);
+	push_b_to_a(a, b);	
 }
 
-void push_A(t_stack **a, t_stack **b, t_data *data)
-{
-	t_stack	*max_node;
-	int	k;
 
-	k = 0;
+void sort_more(t_stack **a, t_stack **b)
+{
+	t_stack *smallest;
+	send_all_to_b(a, b);
+	sort_three(a);
 	while (*b)
+		do_all(a, b);
+	give_index(*a, true);
+	smallest = get_min(*a);
+	if (smallest->below_median)
 	{
-		max_node = find_max_usin_arr(*b, data);
-		if (max_node) // in b
-		{
-			if (*b == max_node)
-			{
-				data->curr_max_i--;
-				push_b_to_a(a, b, "pa");
-			}
-			else if (last(*b) == max_node)
-			{
-				reverse_rotate_stack(b, "rrb");
-				max_node = find_max_usin_arr(*b, data);
-				data->curr_max_i--;
-				push_b_to_a(a, b, "pa");
-			}
-			else // not up and now down but in there
-			{
-				if (k == 0)
-				{
-					push_b_to_a(a, b, "pa");
-					rotate_stack(a, "ra");
-					k++;
-				}
-				else
-				{
-					if (*b < last(*a))
-						rotate_stack(b, "rb");
-					else
-					{
-						push_b_to_a(a, b, "pa");
-						rotate_stack(a, "ra");
-					}
-				}
-			}
-		}
-		else // in a
-		{
-			while (k-- > 0)
-				reverse_rotate_stack(a, "rra");
-			data->curr_max_i--;
-		}
+		while (*a != smallest)
+			reverse_rotate_stack(a, "rra\n");
 	}
-	
-	
+	else
+	{
+		while (*a != smallest)
+			rotate_stack(a, "ra\n");
+	}
 }
-
 
 
 int	main(int ac, char *av[])
 {
 	t_stack *a;
 	t_stack *b;
-	t_data data;
-	t_stack *max_node;
-	
+	int		size;
 	int		i;
+
 	i = 0;
 	b = NULL;
 	a = parse(ac, av);
-	set_up(&a, &data);	
 
 	if (is_stack_sorted(a))
 		return 0;
-	else if (size(a) == 2)
-		sort_two(&a, "sa");
-	else if (size(a) == 3)
-		sort_three(&a, &b);
-	else if (size(a) == 4)
-		sort_four(&a, &b);
-	else if (size(a) == 5)
-		sort_five(&a, &b);
+	if (get_size(a) == 2)
+		sort_two(&a);
+	else if (get_size(a) == 3)
+		sort_three(&a);
 	else
-	{
-		push_B(&a, &b, &data);
-		print_stack(b);
-		printf("done push to a now push to b\n");
-		push_A(&a, &b, &data);
-		printf ("stack a\n");
-		print_stack(a);
-
-	}
+		sort_more(&a, &b);
 }

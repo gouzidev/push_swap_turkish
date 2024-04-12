@@ -1,11 +1,5 @@
 #include "push_swap.h"
 
-void ft_free(void *ptr)
-{
-	if (ptr != NULL)
-		free(ptr);
-	ptr = NULL;
-}
 int	ft_atoi(const char *str)
 {
 	int		i;
@@ -36,38 +30,35 @@ void	print_exit(char *msg)
 	printf("%s\n", msg);
 	exit(1);
 }
-void	print_stack(t_stack *stack)
-{
-	printf("---\n");
-	while (stack)
-	{
-		printf("-> %d [%d]  $%d", stack->n, stack->i, stack->push_cost);
-		if (stack->target)
-			printf("|  target => %d\n", stack->target->n);
-		else
-			printf("|  target => %p\n", NULL);
 
-
-		stack = stack->next;
-	}
-	printf("---\n");
-}
-void	fill_stack(t_stack **stack)
+void prepare_and_push(t_stack **a, t_stack **b)
 {
-	push(stack, new (1));
-	push(stack, new (2));
-	push(stack, new (3));
-	push(stack, new (4));
+	t_stack *cheapest;
+	t_stack *target;
+	t_stack *curr;
+
+    give_index(*a, true);
+    give_index(*b, true);
+	set_targets(*a, *b);
+	calc_push_cost(*a, *b);
+	cheapest = get_cheapest(*b);
+	target = cheapest->target;
+	if (cheapest->below_median)
+		handle_cheapest_below_med(a, b, cheapest);	
+	else if (!cheapest->below_median)
+		handle_cheapest_above_med(a, b, cheapest);
+	push_b_to_a(a, b);	
 }
+
 void	give_index(t_stack *head, bool set_target_null)
 {
 	t_stack	*curr;
 	int		i;
 	int		median;
 
-	median = get_size(head) / 2;
 	if (!head)
 		return ;
+	median = get_size(head) / 2;
 	curr = head;
 	i = 0;
 	while (curr)
@@ -92,4 +83,25 @@ int	is_stack_sorted(t_stack *head)
 		head = head->next;
 	}
 	return 1;
+}
+
+void sort_more(t_stack **a, t_stack **b)
+{
+	t_stack *smallest;
+	send_all_to_b(a, b);
+	sort_three(a);
+	while (*b)
+		prepare_and_push(a, b);
+	give_index(*a, true);
+	smallest = get_min(*a);
+	if (smallest->below_median)
+	{
+		while (*a != smallest)
+			reverse_rotate_stack(a, "rra\n");
+	}
+	else
+	{
+		while (*a != smallest)
+			rotate_stack(a, "ra\n");
+	}
 }

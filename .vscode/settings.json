@@ -1,6 +1,7 @@
 {
     "files.associations": {
-        "random": "c",
-        "push_swap.h": "c"
+        "push_swap.h": "c",
+        "fcntl.h": "c",
+        "limits.h": "c"
     }
 }

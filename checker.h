@@ -9,6 +9,22 @@
 #include <limits.h>
 #include <fcntl.h>
 
+# include <stdlib.h>
+# include <unistd.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1337
+# endif
+
+char	*get_next_line(int fd);
+int		we_have_a_problem(int fd, char **str);
+char	*ft_strchr(char *s, int c);
+char	*ft_strjoin(char *left_str, char *buff);
+size_t	ft_strlen(char *s);
+char	*ft_get_line(char *left_str);
+char	*get_rest(char *left_str);
+
+
 typedef struct s_stack {
     int n;
     int i;
@@ -17,7 +33,6 @@ typedef struct s_stack {
     struct s_stack *next;
     struct s_stack *target;
 }   t_stack;
-
 
 /* main.c */
 t_stack *parse(int ac, char *av[]);
@@ -44,34 +59,10 @@ char	**handle_null_malloc(char const *s, char c);
 char	**ft_split(char const *s, char c);
 void check_format(char *s);
 
-/* helper2.c */
-t_stack *get_max(t_stack *stack);
-t_stack *get_min(t_stack *stack);
-void sort_two(t_stack **a);
-void sort_three(t_stack **a);
-void send_all_to_b(t_stack **a, t_stack **b);
-
-/* helper1.c */
-int	ft_atoi(const char *str);
-void	print_exit(char *msg);
-void	give_index(t_stack *head, bool set_target_null);
-int	is_stack_sorted(t_stack *head);
-void sort_more(t_stack **a, t_stack **b);
-
-void prepare_and_push(t_stack **a, t_stack **b);
-
-
+/* helper.c */
 int	ft_atoi(const char *str);
 void print_exit(char *msg);
 int	is_stack_sorted(t_stack *head);
-
-/* prepare.c */
-void set_targets(t_stack *a, t_stack *b);
-void calc_push_cost(t_stack *a, t_stack *b);
-t_stack *get_cheapest(t_stack *b);
-void handle_cheapest_above_med(t_stack **a, t_stack **b, t_stack *cheapest);
-void handle_cheapest_below_med(t_stack **a, t_stack **b, t_stack *cheapest);
-
 
 void give_index(t_stack *head, bool set_target_null);
 

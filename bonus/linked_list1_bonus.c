@@ -6,13 +6,13 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:13 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/17 18:36:48 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/17 22:08:34 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker_bonus.h"
 
-t_stack *new (int n)
+t_stack	*new(int n)
 {
 	t_stack	*new_node;
 
@@ -23,6 +23,7 @@ t_stack *new (int n)
 	new_node->n = n;
 	return (new_node);
 }
+
 void	push(t_stack **head, t_stack *new)
 {
 	if (!new || !head)
@@ -31,6 +32,7 @@ void	push(t_stack **head, t_stack *new)
 	*head = new;
 	give_index(*head, false);
 }
+
 void	push_end(t_stack **head, t_stack *new)
 {
 	t_stack	*last;
@@ -49,6 +51,7 @@ void	push_end(t_stack **head, t_stack *new)
 	}
 	give_index(*head, false);
 }
+
 void	pop(t_stack **head)
 {
 	t_stack	*temp;
@@ -59,6 +62,7 @@ void	pop(t_stack **head)
 	*head = (*head)->next;
 	free(temp);
 }
+
 int	get_size(t_stack *stack)
 {
 	int	i;

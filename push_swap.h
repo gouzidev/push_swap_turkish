@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:26 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/17 17:07:27 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/17 22:04:44 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char				**ft_split(char const *s, char c);
 t_stack				*get_max(t_stack *stack);
 t_stack				*get_min(t_stack *stack);
 void				sort_two(t_stack **a);
-void				sort_three(t_stack **a);
+void				sort_less_than_four(t_stack **a);
 void				send_all_to_b(t_stack **a, t_stack **b);
 
 /* helper1.c */
@@ -86,7 +86,7 @@ void				handle_cheapest_below_med(t_stack **a, t_stack **b,
 void				give_index(t_stack *head, bool set_target_null);
 
 /* linked_list.c */
-t_stack *new (int n);
+t_stack				*new(int n);
 void				push(t_stack **head, t_stack *new);
 void				push_end(t_stack **head, t_stack *new);
 void				pop(t_stack **head);

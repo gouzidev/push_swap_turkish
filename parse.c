@@ -6,37 +6,11 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:23 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/17 18:56:14 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/17 22:02:39 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-int	ft_atoi(const char *str)
-{
-	int		i;
-	int		sign;
-	long	res;
-
-	res = 0;
-	sign = 1;
-	i = 0;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			sign = -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		res = res * 10 + (str[i] - 48);
-		if (res > INT_MAX || (res * sign) < INT_MIN)
-			print_exit("laaaarge number");
-		i++;
-	}
-	return (res * sign);
-}
-
 
 int	ft_strlen(char *str)
 {
@@ -82,10 +56,25 @@ int	valid(char *num)
 	return (1);
 }
 
+void	verify_push(char **split_arr, t_stack	**a, int j)
+{
+	t_stack	*node;
+
+	if (is_empty(split_arr[j]) || !valid(split_arr[j]))
+		(clear(a), free_all(split_arr), print_exit("Error\n"));
+	else
+	{
+		node = new (ft_atoi(split_arr[j]));
+		if (!node || exists(*a, node))
+			(clear(a), free_all(split_arr), free(node),
+				print_exit("Error\n"));
+		push_end(a, node);
+	}
+}
+
 t_stack	*parse(int ac, char *av[])
 {
 	t_stack	*a;
-	t_stack	*node;
 	char	**split_arr;
 	int		i;
 	int		j;
@@ -101,18 +90,7 @@ t_stack	*parse(int ac, char *av[])
 			print_exit("Error\n");
 		j = -1;
 		while (split_arr[++j])
-		{
-			if (is_empty(split_arr[j]) || !valid(split_arr[j]))
-				(clear(&a), free_all(split_arr), print_exit("Error\n"));
-			else
-			{
-				node = new (ft_atoi(split_arr[j]));
-				if (!node || exists(a, node))
-					(clear(&a), free_all(split_arr), free(node),
-						print_exit("Error\n"));
-				push_end(&a, node);
-			}
-		}
+			verify_push(split_arr, &a, j);
 		free_all(split_arr);
 	}
 	return (a);

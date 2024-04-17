@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:11 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/17 18:59:26 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/17 21:47:30 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	sort_more(t_stack **a, t_stack **b)
 	t_stack	*smallest;
 
 	send_all_to_b(a, b);
-	sort_three(a);
+	sort_less_than_four(a);
 	while (*b)
 		prepare_and_push(a, b);
 	give_index(*a, true);

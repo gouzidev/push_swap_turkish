@@ -6,11 +6,36 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:04 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/17 18:34:51 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/17 21:59:51 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker_bonus.h"
+
+int	ft_atoi(const char *str)
+{
+	int		i;
+	int		sign;
+	long	res;
+
+	res = 0;
+	sign = 1;
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		res = res * 10 + (str[i] - 48);
+		if (res > INT_MAX || (res * sign) < INT_MIN)
+			print_exit("laaaarge number");
+		i++;
+	}
+	return (res * sign);
+}
 
 int	ft_strcmp(const char *s1, const char *s2)
 {
@@ -42,7 +67,7 @@ void	handle_op(char *op, t_stack **a, t_stack **b)
 		swap_stack(b, "sb", false);
 	else if (ft_strcmp(op, "ra\n") == 0)
 		rotate_stack(a, "ra", false);
-	else if (ft_strcmp(op, "sb\n") == 0)
+	else if (ft_strcmp(op, "rb\n") == 0)
 		rotate_stack(b, "rb", false);
 	else if (ft_strcmp(op, "rr\n") == 0)
 		rotate_ab(a, b, false);

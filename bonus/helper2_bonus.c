@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:12 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/17 18:58:46 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/17 21:50:46 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ t_stack	*get_min(t_stack *stack)
 	return (min);
 }
 
-void	sort_two(t_stack **a)
+void	sort_less_than_four(t_stack **a)
 {
-	if (*a && (*a)->next && (*a)->n > (*a)->next->n)
-		swap_stack(a, "sa\n", true);
-}
-
-void	sort_three(t_stack **a)
-{
+	if (get_size(*a) == 2)
+	{
+		if (*a && (*a)->next && (*a)->n > (*a)->next->n)
+			swap_stack(a, "sa\n", true);
+		return ;
+	}
 	if ((*a)->next == get_max(*a))
 	{
 		if (get_last(*a)->n < (*a)->n)

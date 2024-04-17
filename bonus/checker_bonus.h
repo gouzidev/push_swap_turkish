@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker_bonus.h                                          :+:      :+:    :+:   */
+/*   checker_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/17 17:07:06 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/17 17:09:22 by sgouzi           ###   ########.fr       */
+/*   Created: 2024/04/17 22:06:50 by sgouzi            #+#    #+#             */
+/*   Updated: 2024/04/17 22:08:04 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#ifndef CHECKER_BONUS_H
+# define CHECKER_BONUS_H
 
 # include <fcntl.h>
-# include <stdbool.h>
 # include <limits.h>
+# include <stdbool.h>
 # include <stdlib.h>
 # include <unistd.h>
 
@@ -68,7 +68,7 @@ char				**ft_split(char const *s, char c);
 t_stack				*get_max(t_stack *stack);
 t_stack				*get_min(t_stack *stack);
 void				sort_two(t_stack **a);
-void				sort_three(t_stack **a);
+void				sort_less_than_four(t_stack **a);
 void				send_all_to_b(t_stack **a, t_stack **b);
 
 /* helper1.c */
@@ -96,7 +96,7 @@ void				handle_cheapest_below_med(t_stack **a, t_stack **b,
 void				give_index(t_stack *head, bool set_target_null);
 
 /* linked_list.c */
-t_stack *new (int n);
+t_stack				*new(int n);
 void				push(t_stack **head, t_stack *new);
 void				push_end(t_stack **head, t_stack *new);
 void				pop(t_stack **head);

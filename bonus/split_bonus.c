@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:30 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/17 18:37:03 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/17 22:05:53 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,10 @@ char	**handle_null_malloc(char const *s, char c)
 
 char	**ft_split(char const *s, char c)
 {
-	int w;
-	char **res;
-	int i;
-	int j;
+	int		w;
+	char	**res;
+	int		i;
+	int		j;
 
 	i = 0;
 	res = handle_null_malloc(s, c);

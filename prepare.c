@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:25 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/17 17:07:26 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/17 22:03:38 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	set_targets(t_stack *a, t_stack *b)
 	t_stack	*curr_a;
 	long	target;
 
-	// find the smallest bigger a node than my b node (we should push it there)
-	// if we didnt find than we go for the max node
 	while (b)
 	{
 		b->target = NULL;
@@ -43,11 +41,6 @@ void	calc_push_cost(t_stack *a, t_stack *b)
 {
 	t_stack	*curr_b;
 
-	// now all b nodes have a target, should get the push cost ->
-	// if (below median)
-	// index
-	// else (above median)
-	// size - index
 	curr_b = b;
 	while (curr_b)
 	{

@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   checker_bonus.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/17 17:07:26 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/17 17:07:27 by sgouzi           ###   ########.fr       */
+/*   Created: 2024/04/17 17:07:06 by sgouzi            #+#    #+#             */
+/*   Updated: 2024/04/17 17:09:22 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
+# ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
 # include <fcntl.h>
-# include <limits.h>
 # include <stdbool.h>
-# include <stdio.h>
+# include <limits.h>
 # include <stdlib.h>
-# include <string.h>
 # include <unistd.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1337
+# endif
+
+char				*get_next_line(int fd);
+int					we_have_a_problem(int fd, char **str);
+char				*ft_strchr(char *s, int c);
+char				*ft_strjoin(char *left_str, char *buff);
+int					ft_strlen(char *s);
+char				*ft_get_line(char *left_str);
+char				*get_rest(char *left_str);
 
 typedef struct s_stack
 {

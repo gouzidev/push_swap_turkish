@@ -2,6 +2,9 @@
     "files.associations": {
         "push_swap.h": "c",
         "fcntl.h": "c",
-        "limits.h": "c"
+        "limits.h": "c",
+        "unistd.h": "c",
+        "checker_bonus.h": "c",
+        "stdlib.h": "c"
     }
 }

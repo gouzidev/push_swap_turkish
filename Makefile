@@ -6,7 +6,7 @@
 #    By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/17 18:27:01 by sgouzi            #+#    #+#              #
-#    Updated: 2024/04/17 18:50:50 by sgouzi           ###   ########.fr        #
+#    Updated: 2024/04/17 22:35:45 by sgouzi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ all : $(NAME)
 bonus : $(NAME_b)
 
 %.o: %.c
-	$(CC) -Wall -Wextra -Werror -c $< -o $@
+	$(CC) -Wall -Wextra -Werror -c $? -o $@
 
 $(NAME): $(OBJ)
 	$(CC) $(OBJ) -o $(NAME)
@@ -44,4 +44,3 @@ fclean: clean
 	rm -rf $(NAME) $(NAME_b)
 
 re: fclean all bonus clean
-	

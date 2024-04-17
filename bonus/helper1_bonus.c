@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:11 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/17 21:47:30 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/17 22:52:30 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_exit(char *msg)
 {
-	write(1, msg, ft_strlen(msg));
+	write(2, msg, ft_strlen(msg));
 	exit(1);
 }
 

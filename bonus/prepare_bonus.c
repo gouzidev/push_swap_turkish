@@ -6,11 +6,11 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:25 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/17 22:06:08 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/17 22:37:18 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker_bonus.h"
 
 void	set_targets(t_stack *a, t_stack *b)
 {

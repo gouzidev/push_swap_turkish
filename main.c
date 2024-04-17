@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:16 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/17 21:59:10 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/17 22:51:05 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_atoi(const char *str)
 	{
 		res = res * 10 + (str[i] - 48);
 		if (res > INT_MAX || (res * sign) < INT_MIN)
-			print_exit("laaaarge number");
+			print_exit("Error\n");
 		i++;
 	}
 	return (res * sign);

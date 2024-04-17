@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:19 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/17 22:08:53 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/17 22:49:45 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	push_b_to_a(t_stack **a, t_stack **b, bool print)
 
 	if (!a || !b)
 	{
-		write(1, "Error\n", 6);
+		write(2, "Error\n", 6);
 		exit(1);
 	}
 	if (*b)
@@ -55,7 +55,7 @@ void	push_a_to_b(t_stack **a, t_stack **b, bool print)
 
 	if (!a || !b)
 	{
-		write(1, "Error\n", 6);
+		write(2, "Error\n", 6);
 		exit(1);
 	}
 	if (*a)

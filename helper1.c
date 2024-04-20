@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:11 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/17 22:52:37 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/20 17:30:47 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,7 @@ void	print_exit(char *msg)
 	exit(1);
 }
 
-void	prepare_and_push_to_a(t_stack **a, t_stack **b)
-{
-	t_stack	*cheapest;
-
-	give_index(*a, true);
-	give_index(*b, true);
-	set_b_targets_in_a(*a, *b);
-	calc_push_cost(*a, *b);
-	cheapest = get_cheapest(*b);
-	if (cheapest->below_median)
-		handle_cheapest_below_med(a, b, cheapest);
-	else if (!cheapest->below_median)
-		handle_cheapest_above_med(a, b, cheapest);
-	push_from_to(a, b, "pa\n");
-}
-
-void	give_index(t_stack *head, bool set_target_null)
+void	give_index(t_stack *head, bool set_target_null, bool reset_push_cost)
 {
 	t_stack	*curr;
 	int		i;
@@ -50,9 +34,10 @@ void	give_index(t_stack *head, bool set_target_null)
 		if (set_target_null == true)
 			curr->target = NULL;
 		curr->i = i++;
-		curr->push_cost = -1;
+		if (reset_push_cost == true)
+			curr->push_cost = -1;
 		curr->below_median = false;
-		if (curr->i > median)
+		if (curr->i >= median)
 			curr->below_median = true;
 		curr = curr->next;
 	}
@@ -73,12 +58,17 @@ void	sort_more(t_stack **a, t_stack **b)
 {
 	t_stack	*smallest;
 
-	while (get_size(*a) > 3)
+	push_from_to(a, b, "pb\n");
+	push_from_to(a, b, "pb\n");
+
+	while (get_size(*a) > 3 && !is_stack_sorted(*a))
 		prepare_and_push_to_b(a, b);
-	sort_less_than_four(a);
+	if (get_size(*a) < 4 && !is_stack_sorted(*a))
+		sort_less_than_four(a);
 	while (*b)
 		prepare_and_push_to_a(a, b);
-	give_index(*a, true);
+	give_index(*a, false, false);
+	give_index(*b, false, false);
 	smallest = get_min(*a);
 	if (smallest->below_median)
 	{

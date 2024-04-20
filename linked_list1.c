@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:13 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/17 18:57:38 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/20 14:39:32 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	push(t_stack **head, t_stack *new)
 		return ;
 	new->next = *head;
 	*head = new;
-	give_index(*head, false);
+	give_index(*head, false, false);
 }
 
 void	push_end(t_stack **head, t_stack *new)
@@ -49,7 +49,7 @@ void	push_end(t_stack **head, t_stack *new)
 		last = get_last(*head);
 		last->next = new;
 	}
-	give_index(*head, false);
+	give_index(*head, false, false);
 }
 
 void	pop(t_stack **head)

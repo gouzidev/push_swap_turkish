@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 22:06:50 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/17 22:08:04 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/19 20:34:41 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,8 @@ int					ft_atoi(const char *str);
 void				print_exit(char *msg);
 void				give_index(t_stack *head, bool set_target_null);
 int					is_stack_sorted(t_stack *head);
-void				sort_more(t_stack **a, t_stack **b);
-
+void				sort_more(t_stack **a, t_stack **b);\
 void				prepare_and_push(t_stack **a, t_stack **b);
-
 int					ft_atoi(const char *str);
 void				print_exit(char *msg);
 int					is_stack_sorted(t_stack *head);
@@ -92,7 +90,6 @@ void				handle_cheapest_above_med(t_stack **a, t_stack **b,
 						t_stack *cheapest);
 void				handle_cheapest_below_med(t_stack **a, t_stack **b,
 						t_stack *cheapest);
-
 void				give_index(t_stack *head, bool set_target_null);
 
 /* linked_list.c */

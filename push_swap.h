@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:26 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/17 22:52:16 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/20 17:00:31 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int					valid(char *num);
 
 /* operations.c */
 void				swap_stack(t_stack **head, char *msg, bool print);
-void push_from_to(t_stack **to, t_stack **from, char *msg);
+void push_from_to(t_stack **from, t_stack **to, char *msg);
 void				rotate_stack(t_stack **stack, char *msg, bool print);
 void				rotate_ab(t_stack **a, t_stack **b, bool print);
 void				reverse_rotate_stack(t_stack **stack, char *msg,
@@ -63,7 +63,8 @@ void				prepare_and_push_to_b(t_stack **a, t_stack **b);
 /* helper1.c */
 int					ft_atoi(const char *str);
 void				print_exit(char *msg);
-void				give_index(t_stack *head, bool set_target_null);
+void				give_index(t_stack *head, bool set_target_null,
+						bool reset_push_cost);
 int					is_stack_sorted(t_stack *head);
 void				sort_more(t_stack **a, t_stack **b);
 
@@ -71,15 +72,13 @@ void				prepare_and_push_to_a(t_stack **a, t_stack **b);
 
 /* prepare.c */
 void				set_b_targets_in_a(t_stack *a, t_stack *b);
-void				calc_push_cost(t_stack *first, t_stack *second);
-t_stack				*get_cheapest(t_stack *b);
-void				handle_cheapest_above_med(t_stack **a, t_stack **b,
-						t_stack *cheapest);
-void				handle_cheapest_below_med(t_stack **a, t_stack **b,
-						t_stack *cheapest);
+void				calc_push_cost(t_stack *a, t_stack *b);
+t_stack				*get_cheapest(t_stack *stack);
 
-void				give_index(t_stack *head, bool set_target_null);
 
+void prep_for_push(t_stack **stack, t_stack *node, char stackname);
+void bring_to_top(t_stack **first, t_stack **second, t_stack *cheapest);
+void print_stack(t_stack *stack, char stackname);
 /* linked_list.c */
 t_stack				*new(int n);
 void				push(t_stack **head, t_stack *new);

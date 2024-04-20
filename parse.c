@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:23 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/17 22:34:38 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/20 15:47:41 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ t_stack	*parse(int ac, char *av[])
 			(clear(&a), print_exit("Error\n"));
 		split_arr = ft_split(av[i], ' ');
 		if (split_arr == NULL)
-			print_exit("Error\n");
+			(clear(&a), print_exit("Error\n"));
 		j = -1;
 		while (split_arr[++j])
 			verify_push(split_arr, &a, j);

@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:26 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/20 17:00:31 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/20 17:39:17 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void				calc_push_cost(t_stack *a, t_stack *b);
 t_stack				*get_cheapest(t_stack *stack);
 
 
-void prep_for_push(t_stack **stack, t_stack *node, char stackname);
+void clean_top(t_stack **stack, t_stack *node, char stackname);
 void bring_to_top(t_stack **first, t_stack **second, t_stack *cheapest);
 void print_stack(t_stack *stack, char stackname);
 /* linked_list.c */

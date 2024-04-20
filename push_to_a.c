@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:25 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/20 17:30:13 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/20 17:39:17 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	prepare_and_push_to_a(t_stack **a, t_stack **b)
 	set_b_targets_in_a(*a, *b);
 	give_index(*a, false, false);
 	give_index(*b, false, false);
-	prep_for_push(a, (*b)->target, 'a');
+	clean_top(a, (*b)->target, 'a');
 	give_index(*a, false, false);
 	give_index(*b, false, false);
 	push_from_to(b, a, "pa\n");

@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:04 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/17 22:40:14 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/20 18:46:12 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 
 int	is_valid_op(char *op)
 {
-	return ((ft_strcmp(op, "sa") == 0) || (ft_strcmp(op, "sb") == 0)
+	return ((ft_strcmp(op, "sa") == 0) || (ft_strcmp(op, "sb") == 0 || ft_strcmp(op, "ss") == 0)
 		|| (ft_strcmp(op, "ra") == 0) || (ft_strcmp(op, "rb") == 0)
 		|| (ft_strcmp(op, "rr") == 0) || (ft_strcmp(op, "rra") == 0)
 		|| (ft_strcmp(op, "rrb") == 0) || (ft_strcmp(op, "rrr") == 0));
@@ -65,6 +65,8 @@ void	handle_op(char *op, t_stack **a, t_stack **b)
 		swap_stack(a, "sa", false);
 	else if (ft_strcmp(op, "sb\n") == 0)
 		swap_stack(b, "sb", false);
+	else if (ft_strcmp(op, "ss\n") == 0)
+		(swap_stack(a, "sa", false), swap_stack(b, "sb", false));
 	else if (ft_strcmp(op, "ra\n") == 0)
 		rotate_stack(a, "ra", false);
 	else if (ft_strcmp(op, "rb\n") == 0)
@@ -81,7 +83,7 @@ void	handle_op(char *op, t_stack **a, t_stack **b)
 		print_exit("Error\n");
 }
 
-int	main(int ac, char *av[])
+int	main1(int ac, char *av[])
 {
 	t_stack	*a;
 	t_stack	*b;
@@ -103,4 +105,11 @@ int	main(int ac, char *av[])
 		write(1, "OK\n", 3);
 	else
 		write(1, "KO\n", 3);
+	return 0;
+}
+
+int main(int ac, char *av[])
+{
+	main1(ac, av);
+	system("leaks checker");
 }

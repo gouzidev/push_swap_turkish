@@ -45,7 +45,7 @@ void print_stack(t_stack *stack, char stackname)
     }
 }
 
-void prep_for_push(t_stack **stack, t_stack *node, char stackname)
+void clean_top(t_stack **stack, t_stack *node, char stackname)
 {
     while (*stack != node)
     {
@@ -83,14 +83,12 @@ void	prepare_and_push_to_b(t_stack **a, t_stack **b)
     t_stack *cheapest;
     t_stack *target;
 
-    give_index(*a, true, true);
-	give_index(*b, true, true);
     set_a_targets_in_b(*a, *b);
     calc_push_cost(*a, *b);
     cheapest = get_cheapest(*a);
     target = cheapest->target;
     bring_to_top(a, b, cheapest);
-    prep_for_push(a, cheapest, 'a');
-    prep_for_push(b, cheapest->target, 'b');
+    clean_top(a, cheapest, 'a');
+    clean_top(b, cheapest->target, 'b');
     push_from_to(a, b, "pb\n");
 }

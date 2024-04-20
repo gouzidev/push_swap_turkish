@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 22:06:50 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/19 20:34:41 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/20 18:45:04 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,18 @@
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1337
+#  define BUFFER_SIZE 1
 # endif
+
+typedef struct s_node {
+    struct s_node *next;
+    void *data;
+}   t_node;
+
+void *gc_malloc (t_node **gc, size_t size);
+void gc_push(t_node **gc, void *data);
+t_node* gc_init();
+void gc_clear(t_node **gc);
 
 char				*get_next_line(int fd);
 int					we_have_a_problem(int fd, char **str);

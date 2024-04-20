@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:27:59 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/17 18:34:51 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/20 20:41:48 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,16 @@ char	*ft_strchr(char *s, int c)
 		i++;
 	}
 	return (0);
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return (s1[i] - s2[i]);
 }
 
 char	*ft_strjoin(char *str, char *buff)

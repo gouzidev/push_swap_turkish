@@ -6,11 +6,12 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:23 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/17 22:30:28 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/20 21:19:35 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker_bonus.h"
+
 
 int	ft_strlen(char *str)
 {
@@ -66,8 +67,7 @@ void	verify_push(char **split_arr, t_stack	**a, int j)
 	{
 		node = new (ft_atoi(split_arr[j]));
 		if (!node || exists(*a, node))
-			(clear(a), free_all(split_arr), free(node),
-				print_exit("Error\n"));
+			(clear(a), free_all(split_arr), free(node),	print_exit("Error\n"));
 		push_end(a, node);
 	}
 }
@@ -87,7 +87,7 @@ t_stack	*parse(int ac, char *av[])
 			(clear(&a), print_exit("Error\n"));
 		split_arr = ft_split(av[i], ' ');
 		if (split_arr == NULL)
-			print_exit("Error\n");
+			(clear(&a), free_all(split_arr), print_exit("Error\n"));
 		j = -1;
 		while (split_arr[++j])
 			verify_push(split_arr, &a, j);

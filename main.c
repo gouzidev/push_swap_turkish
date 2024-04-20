@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:16 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/20 14:25:01 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/20 21:25:48 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main(int ac, char *av[])
 	if (is_stack_sorted(a))
 		return (0);
 	else if (get_size(a) < 4)
-		sort_less_than_four(&a);
+		sort_three_and_two(&a);
 	else
 		sort_more(&a, &b);
 	clear(&a);

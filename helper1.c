@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:11 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/20 18:40:25 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/20 21:13:28 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,45 +43,6 @@ void	give_index(t_stack *head, bool set_target_null, bool reset_push_cost)
 	}
 }
 
-int	is_stack_sorted(t_stack *head)
-{
-	while (head && head->next)
-	{
-		if (head->n > head->next->n)
-			return (0);
-		head = head->next;
-	}
-	return (1);
-}
-void sort_four(t_stack **a, t_stack **b)
-{
-	t_stack *min;
-
-	min = get_min(*a);
-	while (*a != min)
-		rotate_stack(a, "ra\n", true);
-	push_from_to(a, b, "pb\n");
-	sort_less_than_four(a);
-	push_from_to(b, a, "pa\n");
-	push_from_to(b, a, "pa\n");
-}
-
-void sort_five(t_stack **a, t_stack **b)
-{
-	t_stack *min;
-	give_index(*a, true, true);
-	min = get_min(*a);
-	if (min->below_median)
-		while (*a != min)
-			reverse_rotate_stack(a, "rra\n", true);
-	else
-		while (*a != min)
-			rotate_stack(a, "ra\n", true);
-	push_from_to(b, a, "pa\n");
-	sort_less_than_four(a);
-	push_from_to(a, b, "pb\n");
-}
-
 void clean_up(t_stack **a)
 {
 	t_stack	*smallest;
@@ -97,29 +58,4 @@ void clean_up(t_stack **a)
 		while (*a != smallest)
 			rotate_stack(a, "ra\n", true);
 	}
-}
-
-void	sort_more(t_stack **a, t_stack **b)
-{
-	if (get_size(*a) == 5)
-	{
-		sort_five(a, b);
-		return ;
-	}
-	else if (get_size(*a) == 4)
-	{
-		sort_four(a, b);
-		return ;
-	}
-	push_from_to(a, b, "pb\n");
-	push_from_to(a, b, "pb\n");
-	while (get_size(*a) > 3 && !is_stack_sorted(*a))
-		prepare_and_push_to_b(a, b);
-	if (get_size(*a) < 4 && !is_stack_sorted(*a))
-		sort_less_than_four(a);
-	while (*b)
-		prepare_and_push_to_a(a, b);
-	give_index(*a, false, false);
-	give_index(*b, false, false);
-	clean_up(a);
 }

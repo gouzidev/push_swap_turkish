@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:12 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/17 21:50:46 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/20 21:25:48 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_stack	*get_min(t_stack *stack)
 	return (min);
 }
 
-void	sort_less_than_four(t_stack **a)
+void	sort_three_and_two(t_stack **a)
 {
 	if (get_size(*a) == 2)
 	{

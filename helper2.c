@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:12 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/17 21:47:51 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/20 21:03:47 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,26 +44,3 @@ t_stack	*get_min(t_stack *stack)
 	return (min);
 }
 
-void	sort_less_than_four(t_stack **a)
-{
-	if (get_size(*a) == 2)
-	{
-		if (*a && (*a)->next && (*a)->n > (*a)->next->n)
-			swap_stack(a, "sa\n", true);
-		return ;
-	}
-	if ((*a)->next == get_max(*a))
-	{
-		if (get_last(*a)->n < (*a)->n)
-			reverse_rotate_stack(a, "rra\n", true);
-		else
-		{
-			swap_stack(a, "sa\n", true);
-			rotate_stack(a, "ra\n", true);
-		}
-	}
-	if (*a == get_max(*a))
-		rotate_stack(a, "ra\n", true);
-	if (get_last(*a) == get_max(*a) && (*a)->n > (*a)->next->n)
-		swap_stack(a, "sa\n", true);
-}

@@ -1,5 +1,20 @@
 #include "push_swap.h"
 
+void	prepare_and_push_to_b(t_stack **a, t_stack **b)
+{
+    t_stack *cheapest;
+    t_stack *target;
+
+    set_a_targets_in_b(*a, *b);
+    calc_push_cost(*a, *b);
+    cheapest = get_cheapest(*a);
+    target = cheapest->target;
+    bring_to_top(a, b, cheapest);
+    clean_top(a, cheapest, 'a');
+    clean_top(b, cheapest->target, 'b');
+    push_from_to(a, b, "pb\n");
+}
+
 void	set_a_targets_in_b(t_stack *a, t_stack *b)
 {
 	t_stack	*curr_b;
@@ -25,24 +40,16 @@ void	set_a_targets_in_b(t_stack *a, t_stack *b)
 	}
 }
 
-void print_stack_target(t_stack *stack)
+void bring_to_top(t_stack **a, t_stack **b, t_stack *cheapest)
 {
-    while (stack)
+    if (cheapest->below_median && cheapest->target->below_median)
     {
-        printf("%d -> %d\n", stack->n, stack->target->n);
-        stack = stack->next;
+        while (cheapest != *a && cheapest->target != *b)
+            reverse_rotate_ab(a, b, true);
     }
-}
-
-void print_stack(t_stack *stack, char stackname)
-{
-    printf("Stack %c\n", stackname);
-    while (stack)
-    {
-        printf("%d [%d]\n", stack->n, stack->i
-        );
-        stack = stack->next;
-    }
+    else if (!cheapest->below_median && !cheapest->target->below_median)
+        while (cheapest != *a && cheapest->target != *b)
+            rotate_ab(a, b, true);
 }
 
 void clean_top(t_stack **stack, t_stack *node, char stackname)
@@ -64,31 +71,4 @@ void clean_top(t_stack **stack, t_stack *node, char stackname)
                 rotate_stack(stack, "rb\n", true);
         }
     }
-}
-
-void bring_to_top(t_stack **a, t_stack **b, t_stack *cheapest)
-{
-    if (cheapest->below_median && cheapest->target->below_median)
-    {
-        while (cheapest != *a && cheapest->target != *b)
-            reverse_rotate_ab(a, b, true);
-    }
-    else if (!cheapest->below_median && !cheapest->target->below_median)
-        while (cheapest != *a && cheapest->target != *b)
-            rotate_ab(a, b, true);
-}
-
-void	prepare_and_push_to_b(t_stack **a, t_stack **b)
-{
-    t_stack *cheapest;
-    t_stack *target;
-
-    set_a_targets_in_b(*a, *b);
-    calc_push_cost(*a, *b);
-    cheapest = get_cheapest(*a);
-    target = cheapest->target;
-    bring_to_top(a, b, cheapest);
-    clean_top(a, cheapest, 'a');
-    clean_top(b, cheapest->target, 'b');
-    push_from_to(a, b, "pb\n");
 }

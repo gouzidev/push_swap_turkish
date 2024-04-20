@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:19 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/17 22:49:45 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/20 20:37:25 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@ void	swap_stack(t_stack **head, char *msg, bool print)
 	}
 	if (print)
 		write(1, msg, ft_strlen(msg));
+}
+
+void swap_both(t_stack **a, t_stack **b, bool print)
+{
+	swap_stack(a, "sa\n", false);
+	swap_stack(b, "sb\n", false);
+	if (print)
+		write(1, "ss\n", 3);
 }
 
 void	push_b_to_a(t_stack **a, t_stack **b, bool print)

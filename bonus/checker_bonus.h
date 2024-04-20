@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 22:06:50 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/20 18:45:04 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/20 21:25:48 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,6 @@
 #  define BUFFER_SIZE 1
 # endif
 
-typedef struct s_node {
-    struct s_node *next;
-    void *data;
-}   t_node;
-
-void *gc_malloc (t_node **gc, size_t size);
-void gc_push(t_node **gc, void *data);
-t_node* gc_init();
-void gc_clear(t_node **gc);
-
-char				*get_next_line(int fd);
-int					we_have_a_problem(int fd, char **str);
-char				*ft_strchr(char *s, int c);
-char				*ft_strjoin(char *left_str, char *buff);
-int					ft_strlen(char *s);
-char				*ft_get_line(char *left_str);
-char				*get_rest(char *left_str);
-
 typedef struct s_stack
 {
 	int				n;
@@ -51,11 +33,26 @@ typedef struct s_stack
 	struct s_stack	*target;
 }					t_stack;
 
+typedef struct {
+    char *op;
+    void (*func)(t_stack **, t_stack **, bool);
+} t_op;
+
+char				*get_next_line(int fd);
+int					we_have_a_problem(int fd, char **str);
+char				*ft_strchr(char *s, int c);
+char				*ft_strjoin(char *left_str, char *buff);
+int					ft_strlen(char *s);
+char				*ft_get_line(char *left_str);
+char				*get_rest(char *left_str);
+int					ft_strcmp(char *s1, char *s2);
+
 /* main.c */
 t_stack				*parse(int ac, char *av[]);
 int					ft_strlen(char *str);
 int					is_empty(char *s);
 int					valid(char *num);
+bool				handle_rotate(char *op, t_stack **a, t_stack **b);
 
 /* operations.c */
 void				swap_stack(t_stack **head, char *msg, bool print);
@@ -66,6 +63,7 @@ void				rotate_ab(t_stack **a, t_stack **b, bool print);
 void				reverse_rotate_stack(t_stack **stack, char *msg,
 						bool print);
 void				reverse_rotate_ab(t_stack **a, t_stack **b, bool print);
+void				swap_both(t_stack **a, t_stack **b, bool print);
 
 /* split.c */
 char				*ft_substr(char const *s, unsigned int start, size_t len);
@@ -77,8 +75,7 @@ char				**ft_split(char const *s, char c);
 /* helper2.c */
 t_stack				*get_max(t_stack *stack);
 t_stack				*get_min(t_stack *stack);
-void				sort_two(t_stack **a);
-void				sort_less_than_four(t_stack **a);
+void				sort_three_and_two(t_stack **a);
 void				send_all_to_b(t_stack **a, t_stack **b);
 
 /* helper1.c */
@@ -89,7 +86,6 @@ int					is_stack_sorted(t_stack *head);
 void				sort_more(t_stack **a, t_stack **b);\
 void				prepare_and_push(t_stack **a, t_stack **b);
 int					ft_atoi(const char *str);
-void				print_exit(char *msg);
 int					is_stack_sorted(t_stack *head);
 
 /* prepare.c */

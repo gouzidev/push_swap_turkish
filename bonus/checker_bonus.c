@@ -6,11 +6,12 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:04 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/20 19:16:09 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/20 20:50:06 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker_bonus.h"
+
 
 int	ft_atoi(const char *str)
 {
@@ -30,34 +31,33 @@ int	ft_atoi(const char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		res = res * 10 + (str[i] - 48);
-		if (res > INT_MAX || (res * sign) < INT_MIN)
+		if ((res * sign) > INT_MAX || (res * sign) < INT_MIN)
 			print_exit("Error\n");
 		i++;
 	}
 	return (res * sign);
 }
 
-int	ft_strcmp(const char *s1, const char *s2)
+bool handle_rotate(char *op, t_stack **a, t_stack **b)
 {
-	size_t			i;
-	unsigned char	*str1;
-	unsigned char	*str2;
-
-	str1 = ((unsigned char *)s1);
-	str2 = ((unsigned char *)s2);
-	i = 0;
-	while (str2[i] != '\0' && str1[i] == str2[i])
-		i++;
-	return (str1[i] - str2[i]);
-}
-
-int	is_valid_op(char *op)
-{
-	return ((ft_strcmp(op, "sa") == 0) || (ft_strcmp(op, "sb") == 0 || ft_strcmp(op, "ss") == 0)
-		|| (ft_strcmp(op, "pb") == 0) || (ft_strcmp(op, "pa") == 0)
-		|| (ft_strcmp(op, "ra") == 0) || (ft_strcmp(op, "rb") == 0)
-		|| (ft_strcmp(op, "rr") == 0) || (ft_strcmp(op, "rra") == 0)
-		|| (ft_strcmp(op, "rrb") == 0) || (ft_strcmp(op, "rrr") == 0));
+	if (ft_strcmp(op, "ra") == 0)
+		rotate_stack(a, "ra", false);
+	else if (ft_strcmp(op, "rb") == 0)
+		rotate_stack(b, "rb", false);
+	else if (ft_strcmp(op, "rr") == 0)
+		rotate_ab(a, b, false);
+	else if (ft_strcmp(op, "rra") == 0)
+		reverse_rotate_stack(a, "rra", false);
+	else if (ft_strcmp(op, "rrb") == 0)
+		reverse_rotate_stack(b, "rrb", false);
+	else if (ft_strcmp(op, "rrr") == 0)
+		reverse_rotate_ab(a, b, false);
+	else
+	{
+		write(2, "Error\n", 6);
+		return false;
+	}
+	return true;
 }
 
 bool	handle_op(char *op, t_stack **a, t_stack **b)
@@ -72,26 +72,8 @@ bool	handle_op(char *op, t_stack **a, t_stack **b)
 		push_a_to_b(a, b, false);
 	else if (ft_strcmp(op, "pb\n") == 0)
 		push_b_to_a(a, b, false);
-	else if (ft_strcmp(op, "ra\n") == 0)
-		rotate_stack(a, "ra", false);
-	else if (ft_strcmp(op, "rb\n") == 0)
-		rotate_stack(b, "rb", false);
-	else if (ft_strcmp(op, "rr\n") == 0)
-		rotate_ab(a, b, false);
-	else if (ft_strcmp(op, "rra\n") == 0)
-		reverse_rotate_stack(a, "rra", false);
-	else if (ft_strcmp(op, "rrb\n") == 0)
-		reverse_rotate_stack(a, "rrb", false);
-	else if (ft_strcmp(op, "rrr\n") == 0)
-		reverse_rotate_ab(a, b, false);
 	else
-	{
-		write(2, "Error\n", 6);
-		free(op);
-		clear(a);
-		clear(b);
-		return false;
-	}
+		return handle_rotate(op, a, b);
 	return true;
 }
 
@@ -111,8 +93,9 @@ int	main(int ac, char *av[])
 	while (line)
 	{
 		res = handle_op(line, &a, &b);
+		free(line);
 		if (res == false)
-			return (1);
+			return (clear(&a), clear(&b), 255);
 		line = get_next_line(0);
 	}
 	if (is_stack_sorted(a))

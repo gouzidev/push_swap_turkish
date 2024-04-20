@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:11 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/17 22:52:30 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/20 21:25:48 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	print_exit(char *msg)
 {
 	write(2, msg, ft_strlen(msg));
-	exit(1);
+	exit(255);
 }
 
 void	prepare_and_push(t_stack **a, t_stack **b)
@@ -76,7 +76,7 @@ void	sort_more(t_stack **a, t_stack **b)
 	t_stack	*smallest;
 
 	send_all_to_b(a, b);
-	sort_less_than_four(a);
+	sort_three_and_two(a);
 	while (*b)
 		prepare_and_push(a, b);
 	give_index(*a, true);

@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:04 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/20 18:46:12 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/20 19:16:09 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_atoi(const char *str)
 	{
 		res = res * 10 + (str[i] - 48);
 		if (res > INT_MAX || (res * sign) < INT_MIN)
-			print_exit("laaaarge number");
+			print_exit("Error\n");
 		i++;
 	}
 	return (res * sign);
@@ -54,12 +54,13 @@ int	ft_strcmp(const char *s1, const char *s2)
 int	is_valid_op(char *op)
 {
 	return ((ft_strcmp(op, "sa") == 0) || (ft_strcmp(op, "sb") == 0 || ft_strcmp(op, "ss") == 0)
+		|| (ft_strcmp(op, "pb") == 0) || (ft_strcmp(op, "pa") == 0)
 		|| (ft_strcmp(op, "ra") == 0) || (ft_strcmp(op, "rb") == 0)
 		|| (ft_strcmp(op, "rr") == 0) || (ft_strcmp(op, "rra") == 0)
 		|| (ft_strcmp(op, "rrb") == 0) || (ft_strcmp(op, "rrr") == 0));
 }
 
-void	handle_op(char *op, t_stack **a, t_stack **b)
+bool	handle_op(char *op, t_stack **a, t_stack **b)
 {
 	if (ft_strcmp(op, "sa\n") == 0)
 		swap_stack(a, "sa", false);
@@ -67,6 +68,10 @@ void	handle_op(char *op, t_stack **a, t_stack **b)
 		swap_stack(b, "sb", false);
 	else if (ft_strcmp(op, "ss\n") == 0)
 		(swap_stack(a, "sa", false), swap_stack(b, "sb", false));
+	else if (ft_strcmp(op, "pa\n") == 0)
+		push_a_to_b(a, b, false);
+	else if (ft_strcmp(op, "pb\n") == 0)
+		push_b_to_a(a, b, false);
 	else if (ft_strcmp(op, "ra\n") == 0)
 		rotate_stack(a, "ra", false);
 	else if (ft_strcmp(op, "rb\n") == 0)
@@ -80,13 +85,21 @@ void	handle_op(char *op, t_stack **a, t_stack **b)
 	else if (ft_strcmp(op, "rrr\n") == 0)
 		reverse_rotate_ab(a, b, false);
 	else
-		print_exit("Error\n");
+	{
+		write(2, "Error\n", 6);
+		free(op);
+		clear(a);
+		clear(b);
+		return false;
+	}
+	return true;
 }
 
-int	main1(int ac, char *av[])
+int	main(int ac, char *av[])
 {
 	t_stack	*a;
 	t_stack	*b;
+	bool res;
 	char	*line;
 
 	if (ac < 2)
@@ -97,19 +110,15 @@ int	main1(int ac, char *av[])
 	line = get_next_line(0);
 	while (line)
 	{
-		handle_op(line, &a, &b);
-		free(line);
+		res = handle_op(line, &a, &b);
+		if (res == false)
+			return (1);
 		line = get_next_line(0);
 	}
 	if (is_stack_sorted(a))
 		write(1, "OK\n", 3);
 	else
 		write(1, "KO\n", 3);
+	clear(&a);
 	return 0;
-}
-
-int main(int ac, char *av[])
-{
-	main1(ac, av);
-	system("leaks checker");
 }

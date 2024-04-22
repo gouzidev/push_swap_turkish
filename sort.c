@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/22 09:37:10 by sgouzi            #+#    #+#             */
+/*   Updated: 2024/04/22 10:09:11 by sgouzi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	sort(t_stack **a, t_stack **b)
@@ -20,19 +32,7 @@ void	sort(t_stack **a, t_stack **b)
 	clean_up(a);
 }
 
-// void print_stack(t_stack *stack)
-// {
-// 	t_stack *curr;
-
-// 	curr = stack;
-// 	while (curr)
-// 	{
-// 		printf("%d\n", curr->n);
-// 		curr = curr->next;
-// 	}
-// }
-
-void small_sort(t_stack **a, t_stack **b)
+void	small_sort(t_stack **a, t_stack **b)
 {
 	if (get_size(*a) == 5)
 	{
@@ -75,9 +75,9 @@ void	sort_three_and_two(t_stack **a)
 	}
 }
 
-void sort_four(t_stack **a, t_stack **b)
+void	sort_four(t_stack **a, t_stack **b)
 {
-	t_stack *min;
+	t_stack	*min;
 
 	min = get_min(*a);
 	while (*a != min)
@@ -88,19 +88,24 @@ void sort_four(t_stack **a, t_stack **b)
 	push_from_to(b, a, "pa\n");
 }
 
-void sort_five(t_stack **a, t_stack **b)
+void	sort_five(t_stack **a, t_stack **b)
 {
-	t_stack *min;
+	t_stack	*min;
+
 	give_index(*a, true, true);
 	min = get_min(*a);
-	if (min->below_median)
+	if (min->i > 2)
+	{
 		while (*a != min)
 			reverse_rotate_stack(a, "rra\n", true);
+	}
 	else
+	{
 		while (*a != min)
 			rotate_stack(a, "ra\n", true);
+	}
 	push_from_to(a, b, "pb\n");
+	give_index(*b, true, true);
 	sort_four(a, b);
 	push_from_to(b, a, "pa\n");
 }
-

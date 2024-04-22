@@ -6,12 +6,11 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:23 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/21 14:00:02 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/22 09:28:34 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker_bonus.h"
-
 
 int	ft_strlen(char *str)
 {
@@ -38,7 +37,7 @@ int	valid(char *num)
 
 	i = 0;
 	if (num[i] == '-' || num[i] == '+')
-		i++;	
+		i++;
 	if (num[i] < '0' || num[i] > '9')
 		return (0);
 	while (num[i])
@@ -50,17 +49,17 @@ int	valid(char *num)
 	return (1);
 }
 
-void	verify_push(char **split_arr, t_stack	**a, int j)
+void	verify_push(char **split_arr, t_stack **a, int j)
 {
 	t_stack	*node;
+
 	if (is_empty(split_arr[j]) || !valid(split_arr[j]))
 		(clear(a), free_all(split_arr), print_exit("Error\n"));
 	else
 	{
 		node = new (ft_atoi(split_arr[j]));
 		if (!node || exists(*a, node))
-			(clear(a), free_all(split_arr), free(node),
-				print_exit("Error\n"));
+			(clear(a), free_all(split_arr), free(node), print_exit("Error\n"));
 		push_end(a, node);
 	}
 }

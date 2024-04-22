@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helper1.c                                          :+:      :+:    :+:   */
+/*   helper_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:11 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/21 12:31:32 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/22 09:48:55 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker_bonus.h"
 
 void	print_exit(char *msg)
 {
@@ -41,53 +41,4 @@ void	give_index(t_stack *head, bool set_target_null, bool reset_push_cost)
 			curr->below_median = true;
 		curr = curr->next;
 	}
-}
-
-void	clean_up(t_stack **a)
-{
-	t_stack	*smallest;
-
-	smallest = get_min(*a);
-	if (smallest->below_median)
-	{
-		while (*a != smallest)
-			reverse_rotate_stack(a, "rra\n", true);
-	}
-	else
-	{
-		while (*a != smallest)
-			rotate_stack(a, "ra\n", true);
-	}
-}
-
-t_stack	*get_max(t_stack *stack)
-{
-	t_stack	*max;
-	t_stack	*curr;
-
-	curr = stack;
-	max = curr;
-	while (curr)
-	{
-		if (curr->n > max->n)
-			max = curr;
-		curr = curr->next;
-	}
-	return (max);
-}
-
-t_stack	*get_min(t_stack *stack)
-{
-	t_stack	*min;
-	t_stack	*curr;
-
-	curr = stack;
-	min = curr;
-	while (curr)
-	{
-		if (curr->n < min->n)
-			min = curr;
-		curr = curr->next;
-	}
-	return (min);
 }

@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:16 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/21 20:53:51 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/22 10:19:36 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,16 @@ int	ft_atoi(const char *str)
 	return (res * sign);
 }
 
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	while (*s1 && *s2 && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+	}
+	return ((unsigned char)*s1 - (unsigned char)*s2);
+}
+
 int	main(int ac, char *av[])
 {
 	t_stack	*a;
@@ -55,6 +65,8 @@ int	main(int ac, char *av[])
 
 	b = NULL;
 	a = parse(ac, av);
+	if (ac == 2 && ft_strcmp(av[1], "") == 0)
+		return (print_exit("Error\n"), 1);
 	if (!is_stack_sorted(a))
 		sort(&a, &b);
 	clear(&a);

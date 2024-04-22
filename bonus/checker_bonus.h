@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 22:06:50 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/21 12:21:13 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/22 11:40:07 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,6 @@ typedef struct s_stack
 	struct s_stack	*target;
 }					t_stack;
 
-typedef struct {
-    char *op;
-    void (*func)(t_stack **, t_stack **, bool);
-} t_op;
-
 char				*get_next_line(int fd);
 int					we_have_a_problem(int fd, char **str);
 char				*ft_strchr(char *s, int c);
@@ -53,6 +48,7 @@ int					ft_strlen(char *str);
 int					is_empty(char *s);
 int					valid(char *num);
 bool				handle_rotate(char *op, t_stack **a, t_stack **b);
+int					is_stack_sorted(t_stack *head);
 
 /* operations.c */
 void				swap_stack(t_stack **head, char *msg, bool print);
@@ -65,6 +61,20 @@ void				reverse_rotate_stack(t_stack **stack, char *msg,
 void				reverse_rotate_ab(t_stack **a, t_stack **b, bool print);
 void				swap_both(t_stack **a, t_stack **b, bool print);
 
+t_stack				*parse(int ac, char *av[]);
+int					ft_strlen(char *str);
+int					is_empty(char *s);
+int					valid(char *num);
+
+/* operations.c */
+void				swap_stack(t_stack **head, char *msg, bool print);
+void				push_from_to(t_stack **from, t_stack **to, char *msg);
+void				rotate_stack(t_stack **stack, char *msg, bool print);
+void				rotate_ab(t_stack **a, t_stack **b, bool print);
+void				reverse_rotate_stack(t_stack **stack, char *msg,
+						bool print);
+void				reverse_rotate_ab(t_stack **a, t_stack **b, bool print);
+
 /* split.c */
 char				*ft_substr(char const *s, unsigned int start, size_t len);
 char				**free_all(char **res);
@@ -75,28 +85,15 @@ char				**ft_split(char const *s, char c);
 /* helper2.c */
 t_stack				*get_max(t_stack *stack);
 t_stack				*get_min(t_stack *stack);
-void				sort_three_and_two(t_stack **a);
-void				send_all_to_b(t_stack **a, t_stack **b);
+void				prepare_and_push_to_b(t_stack **a, t_stack **b);
 
 /* helper1.c */
 int					ft_atoi(const char *str);
 void				print_exit(char *msg);
-void				give_index(t_stack *head, bool set_target_null);
+void				give_index(t_stack *head, bool set_target_null,
+						bool reset_push_cost);
 int					is_stack_sorted(t_stack *head);
-void				sort(t_stack **a, t_stack **b);\
-void				prepare_and_push(t_stack **a, t_stack **b);
-int					ft_atoi(const char *str);
-int					is_stack_sorted(t_stack *head);
-
-/* prepare.c */
-void				set_targets(t_stack *a, t_stack *b);
-void				calc_push_cost(t_stack *a, t_stack *b);
-t_stack				*get_cheapest(t_stack *b);
-void				handle_cheapest_above_med(t_stack **a, t_stack **b,
-						t_stack *cheapest);
-void				handle_cheapest_below_med(t_stack **a, t_stack **b,
-						t_stack *cheapest);
-void				give_index(t_stack *head, bool set_target_null);
+void				sort(t_stack **a, t_stack **b);
 
 /* linked_list.c */
 t_stack				*new(int n);

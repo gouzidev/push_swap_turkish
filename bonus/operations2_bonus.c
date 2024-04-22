@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:22 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/17 22:09:05 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/22 09:28:34 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	rotate_stack(t_stack **stack, char *msg, bool print)
 		last_a->next = *stack;
 	(*stack)->next = NULL;
 	(*stack) = new_head;
-	give_index(*stack, false);
+	give_index(*stack, false, false);
 	if (print)
 		write(1, msg, ft_strlen(msg));
 }
@@ -50,7 +50,7 @@ void	reverse_rotate_stack(t_stack **stack, char *msg, bool print)
 	last_node->next = *stack;
 	before_last_node->next = NULL;
 	*stack = last_node;
-	give_index(*stack, false);
+	give_index(*stack, false, false);
 	if (print)
 		write(1, msg, ft_strlen(msg));
 }

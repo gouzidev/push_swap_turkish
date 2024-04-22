@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:04 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/21 20:42:21 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/22 11:39:50 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,18 @@ int	ft_atoi(const char *str)
 	return (res * sign);
 }
 
-bool handle_rotate(char *op, t_stack **a, t_stack **b)
+int	is_stack_sorted(t_stack *head)
+{
+	while (head && head->next)
+	{
+		if (head->n > head->next->n)
+			return (0);
+		head = head->next;
+	}
+	return (1);
+}
+
+bool	handle_rotate(char *op, t_stack **a, t_stack **b)
 {
 	if (ft_strcmp(op, "ra\n") == 0)
 		rotate_stack(a, "ra", false);
@@ -54,9 +65,9 @@ bool handle_rotate(char *op, t_stack **a, t_stack **b)
 	else
 	{
 		write(2, "Error\n", 6);
-		return false;
+		return (false);
 	}
-	return true;
+	return (true);
 }
 
 bool	handle_op(char *op, t_stack **a, t_stack **b)
@@ -68,40 +79,38 @@ bool	handle_op(char *op, t_stack **a, t_stack **b)
 	else if (ft_strcmp(op, "ss\n") == 0)
 		(swap_stack(a, "sa", false), swap_stack(b, "sb", false));
 	else if (ft_strcmp(op, "pa\n") == 0)
-		push_b_to_a(a, b, false);
+		push_from_to(b, a, false);
 	else if (ft_strcmp(op, "pb\n") == 0)
-		push_a_to_b(a, b, false);
+		push_from_to(a, b, false);
 	else
-		return handle_rotate(op, a, b);
-	return true;
+		return (handle_rotate(op, a, b));
+	return (true);
 }
-#include <stdio.h>
+
 int	main(int ac, char *av[])
 {
 	t_stack	*a;
 	t_stack	*b;
-	bool res;
 	char	*line;
 
 	if (ac < 2)
 		return (0);
+	if (ac == 2 && ft_strcmp(av[1], "") == 0)
+		return (print_exit("Error\n"), 255);
 	a = NULL;
 	b = NULL;
 	a = parse(ac, av);
 	line = get_next_line(0);
 	while (line)
 	{
-		res = handle_op(line, &a, &b);
+		if (handle_op(line, &a, &b) == false)
+			return (clear(&a), clear(&b), free(line), 255);
 		free(line);
-		if (res == false)
-			return (clear(&a), clear(&b), 255);
 		line = get_next_line(0);
 	}
-	
 	if (is_stack_sorted(a) && get_size(b) == 0)
 		write(1, "OK\n", 3);
 	else
 		write(1, "KO\n", 3);
-	clear(&a);
-	return 0;
+	return (clear(&a), 0);
 }

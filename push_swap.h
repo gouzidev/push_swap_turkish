@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:26 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/21 12:21:13 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/22 09:45:02 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,15 @@ int					ft_strlen(char *str);
 int					is_empty(char *s);
 int					valid(char *num);
 
-
 /* push to b */
-void	prepare_and_push_to_b(t_stack **a, t_stack **b);
-void	set_a_targets_in_b(t_stack *a, t_stack *b);
-void bring_to_top(t_stack **a, t_stack **b, t_stack *cheapest);
-void clean_top(t_stack **stack, t_stack *node, char stackname);
+void				prepare_and_push_to_b(t_stack **a, t_stack **b);
+void				set_a_targets_in_b(t_stack *a, t_stack *b);
+void				bring_to_top(t_stack **a, t_stack **b, t_stack *cheapest);
+void				clean_top(t_stack **stack, t_stack *node, char stackname);
 
 /* operations.c */
 void				swap_stack(t_stack **head, char *msg, bool print);
-void push_from_to(t_stack **from, t_stack **to, char *msg);
+void				push_from_to(t_stack **from, t_stack **to, char *msg);
 void				rotate_stack(t_stack **stack, char *msg, bool print);
 void				rotate_ab(t_stack **a, t_stack **b, bool print);
 void				reverse_rotate_stack(t_stack **stack, char *msg,
@@ -80,18 +79,17 @@ void				set_b_targets_in_a(t_stack *a, t_stack *b);
 void				calc_push_cost(t_stack *a, t_stack *b);
 t_stack				*get_cheapest(t_stack *stack);
 
-
-void clean_top(t_stack **stack, t_stack *node, char stackname);
-void bring_to_top(t_stack **first, t_stack **second, t_stack *cheapest);
-void clean_up(t_stack **a);
-
+void				clean_top(t_stack **stack, t_stack *node, char stackname);
+void				bring_to_top(t_stack **first, t_stack **second,
+						t_stack *cheapest);
+void				clean_up(t_stack **a);
 
 /* sort */
-void	sort(t_stack **a, t_stack **b);
-void	sort_three_and_two(t_stack **a);
-void sort_four(t_stack **a, t_stack **b);
-void sort_five(t_stack **a, t_stack **b);
-void small_sort(t_stack **a, t_stack **b);
+void				sort(t_stack **a, t_stack **b);
+void				sort_three_and_two(t_stack **a);
+void				sort_four(t_stack **a, t_stack **b);
+void				sort_five(t_stack **a, t_stack **b);
+void				small_sort(t_stack **a, t_stack **b);
 
 /* linked_list.c */
 t_stack				*new(int n);

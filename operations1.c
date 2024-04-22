@@ -27,7 +27,7 @@ void	swap_stack(t_stack **head, char *msg, bool print)
 	give_index(*head, false, false);
 }
 
-void push_from_to(t_stack **from, t_stack **to, char *msg)
+void	push_from_to(t_stack **from, t_stack **to, char *msg)
 {
 	t_stack	*new_node;
 
@@ -36,7 +36,6 @@ void push_from_to(t_stack **from, t_stack **to, char *msg)
 		write(2, "Error\n", 6);
 		exit(1);
 	}
-
 	if (*from)
 	{
 		new_node = duplicate(*from);

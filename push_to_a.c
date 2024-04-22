@@ -47,8 +47,8 @@ void	set_b_targets_in_a(t_stack *a, t_stack *b)
 void	calc_push_cost(t_stack *a, t_stack *b)
 {
 	t_stack	*curr_a;
-	curr_a = a;
 
+	curr_a = a;
 	while (curr_a)
 	{
 		if (curr_a->below_median && curr_a->target->below_median)

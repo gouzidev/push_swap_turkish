@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:26 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/22 09:45:02 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/22 12:45:36 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ typedef struct s_stack
 /* main.c */
 t_stack				*parse(int ac, char *av[]);
 int					ft_strlen(char *str);
-int					is_empty(char *s);
 int					valid(char *num);
+int					ft_strcmp(const char *s1, const char *s2);
 
 /* push to b */
 void				prepare_and_push_to_b(t_stack **a, t_stack **b);

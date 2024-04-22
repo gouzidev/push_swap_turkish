@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:23 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/21 12:58:50 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/22 12:47:58 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,6 @@ int	ft_strlen(char *str)
 	while (str[len])
 		len++;
 	return (len);
-}
-
-int	is_empty(char *s)
-{
-	if (s[0] != ' ')
-		return (0);
-	return (1);
 }
 
 int	valid(char *num)
@@ -53,7 +46,7 @@ void	verify_push(char **split_arr, t_stack **a, int j)
 {
 	t_stack	*node;
 
-	if (is_empty(split_arr[j]) || !valid(split_arr[j]))
+	if ((ft_strcmp(split_arr[j], "") == 0) || !valid(split_arr[j]))
 		(clear(a), free_all(split_arr), print_exit("Error\n"));
 	else
 	{
@@ -75,7 +68,7 @@ t_stack	*parse(int ac, char *av[])
 	i = 0;
 	while (++i < ac)
 	{
-		if (is_empty(av[i]))
+		if (ft_strcmp(av[i], "") == 0)
 			(clear(&a), print_exit("Error\n"));
 		split_arr = ft_split(av[i], ' ');
 		if (split_arr == NULL)

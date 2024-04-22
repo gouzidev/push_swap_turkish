@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:26 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/20 21:25:48 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/21 12:21:13 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void				print_exit(char *msg);
 void				give_index(t_stack *head, bool set_target_null,
 						bool reset_push_cost);
 int					is_stack_sorted(t_stack *head);
-void				sort_more(t_stack **a, t_stack **b);
+void				sort(t_stack **a, t_stack **b);
 
 void				prepare_and_push_to_a(t_stack **a, t_stack **b);
 
@@ -87,11 +87,11 @@ void clean_up(t_stack **a);
 
 
 /* sort */
-void	sort_more(t_stack **a, t_stack **b);
+void	sort(t_stack **a, t_stack **b);
 void	sort_three_and_two(t_stack **a);
 void sort_four(t_stack **a, t_stack **b);
 void sort_five(t_stack **a, t_stack **b);
-int	is_stack_sorted(t_stack *head);
+void small_sort(t_stack **a, t_stack **b);
 
 /* linked_list.c */
 t_stack				*new(int n);

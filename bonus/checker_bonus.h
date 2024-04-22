@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 22:06:50 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/20 21:25:48 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/21 12:21:13 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int					ft_atoi(const char *str);
 void				print_exit(char *msg);
 void				give_index(t_stack *head, bool set_target_null);
 int					is_stack_sorted(t_stack *head);
-void				sort_more(t_stack **a, t_stack **b);\
+void				sort(t_stack **a, t_stack **b);\
 void				prepare_and_push(t_stack **a, t_stack **b);
 int					ft_atoi(const char *str);
 int					is_stack_sorted(t_stack *head);

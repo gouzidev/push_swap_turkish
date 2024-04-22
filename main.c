@@ -6,11 +6,22 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:16 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/20 21:25:48 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/21 20:53:51 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int	is_stack_sorted(t_stack *head)
+{
+	while (head && head->next)
+	{
+		if (head->n > head->next->n)
+			return (0);
+		head = head->next;
+	}
+	return (1);
+}
 
 int	ft_atoi(const char *str)
 {
@@ -44,11 +55,8 @@ int	main(int ac, char *av[])
 
 	b = NULL;
 	a = parse(ac, av);
-	if (is_stack_sorted(a))
-		return (0);
-	else if (get_size(a) < 4)
-		sort_three_and_two(&a);
-	else
-		sort_more(&a, &b);
+	if (!is_stack_sorted(a))
+		sort(&a, &b);
 	clear(&a);
+	return (0);
 }

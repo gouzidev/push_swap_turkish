@@ -6,7 +6,7 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:11 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/20 21:25:48 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/21 12:21:13 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	is_stack_sorted(t_stack *head)
 	return (1);
 }
 
-void	sort_more(t_stack **a, t_stack **b)
+void	sort(t_stack **a, t_stack **b)
 {
 	t_stack	*smallest;
 

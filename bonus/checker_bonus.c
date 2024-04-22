@@ -6,12 +6,11 @@
 /*   By: sgouzi <sgouzi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:07:04 by sgouzi            #+#    #+#             */
-/*   Updated: 2024/04/20 20:50:06 by sgouzi           ###   ########.fr       */
+/*   Updated: 2024/04/21 20:42:21 by sgouzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker_bonus.h"
-
 
 int	ft_atoi(const char *str)
 {
@@ -40,17 +39,17 @@ int	ft_atoi(const char *str)
 
 bool handle_rotate(char *op, t_stack **a, t_stack **b)
 {
-	if (ft_strcmp(op, "ra") == 0)
+	if (ft_strcmp(op, "ra\n") == 0)
 		rotate_stack(a, "ra", false);
-	else if (ft_strcmp(op, "rb") == 0)
+	else if (ft_strcmp(op, "rb\n") == 0)
 		rotate_stack(b, "rb", false);
-	else if (ft_strcmp(op, "rr") == 0)
+	else if (ft_strcmp(op, "rr\n") == 0)
 		rotate_ab(a, b, false);
-	else if (ft_strcmp(op, "rra") == 0)
+	else if (ft_strcmp(op, "rra\n") == 0)
 		reverse_rotate_stack(a, "rra", false);
-	else if (ft_strcmp(op, "rrb") == 0)
+	else if (ft_strcmp(op, "rrb\n") == 0)
 		reverse_rotate_stack(b, "rrb", false);
-	else if (ft_strcmp(op, "rrr") == 0)
+	else if (ft_strcmp(op, "rrr\n") == 0)
 		reverse_rotate_ab(a, b, false);
 	else
 	{
@@ -69,14 +68,14 @@ bool	handle_op(char *op, t_stack **a, t_stack **b)
 	else if (ft_strcmp(op, "ss\n") == 0)
 		(swap_stack(a, "sa", false), swap_stack(b, "sb", false));
 	else if (ft_strcmp(op, "pa\n") == 0)
-		push_a_to_b(a, b, false);
-	else if (ft_strcmp(op, "pb\n") == 0)
 		push_b_to_a(a, b, false);
+	else if (ft_strcmp(op, "pb\n") == 0)
+		push_a_to_b(a, b, false);
 	else
 		return handle_rotate(op, a, b);
 	return true;
 }
-
+#include <stdio.h>
 int	main(int ac, char *av[])
 {
 	t_stack	*a;
@@ -98,7 +97,8 @@ int	main(int ac, char *av[])
 			return (clear(&a), clear(&b), 255);
 		line = get_next_line(0);
 	}
-	if (is_stack_sorted(a))
+	
+	if (is_stack_sorted(a) && get_size(b) == 0)
 		write(1, "OK\n", 3);
 	else
 		write(1, "KO\n", 3);
